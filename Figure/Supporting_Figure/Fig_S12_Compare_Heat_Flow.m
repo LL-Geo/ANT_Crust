@@ -70,6 +70,36 @@ HPD_INV1c_U=reshape(HPD_INV1c_U,334,334);
 HPD_INV1c_D = c_25(Den_INV1);
 HPD_INV1c_D=reshape(HPD_INV1c_D,334,334);
 
+
+Den_INV1=log10(reshape(Mean_Hete_den(:,:,6)*1e3,334*334,1));
+Den_INV2=log10(reshape(Mean_Hete_den(:,:,6)*1e3+STD_Hete_den(:,:,6)*1e3,334*334,1));
+Den_INV3=log10(reshape(Mean_Hete_den(:,:,6)*1e3-STD_Hete_den(:,:,6)*1e3,334*334,1));
+
+HPD_INV1c = c_50(Den_INV1);
+HPD_INV1c=reshape(HPD_INV1c,334,334);
+HPD_INV1c_U = c_75(Den_INV1);
+HPD_INV1c_U=reshape(HPD_INV1c_U,334,334);
+HPD_INV1c_D = c_25(Den_INV1);
+HPD_INV1c_D=reshape(HPD_INV1c_D,334,334);
+
+
+HPD_INV2c = c_50(Den_INV2);
+HPD_INV2c=reshape(HPD_INV2c,334,334);
+HPD_INV2c_U = c_75(Den_INV2);
+HPD_INV2c_U=reshape(HPD_INV2c_U,334,334);
+HPD_INV2c_D = c_25(Den_INV2);
+HPD_INV2c_D=reshape(HPD_INV2c_D,334,334);
+
+
+HPD_INV3c = c_50(Den_INV3);
+HPD_INV3c=reshape(HPD_INV3c,334,334);
+HPD_INV3c_U = c_75(Den_INV3);
+HPD_INV3c_U=reshape(HPD_INV3c_U,334,334);
+HPD_INV3c_D = c_25(Den_INV3);
+HPD_INV3c_D=reshape(HPD_INV3c_D,334,334);
+
+[mean(mean(10.^HPD_INV3c)),mean(mean(10.^HPD_INV2c)),mean(mean(10.^HPD_INV1c))]
+
 [map2, descriptorname, description] = colorcet('L16');
 
 
@@ -90,10 +120,10 @@ u = f.Units;
 f.Units = 'centimeters';
 
 
-f.Position=[0 0 15 21];
+f.Position=[0 0 16 21];
 
 edgx=0.03;
-edgy=0.015;
+edgy=0.03;
 n=3;
 m=2;
 
@@ -101,53 +131,48 @@ m=2;
 
 ax = subplot(3,2,1)
 ax.Position = [edgx edgy+2/n 1/m-2*edgx 1/n-edgy]
-A=Mean_Hete_den(:,:,6);
+A=(10.^(HPD_INV2c_U)-1).*MeanCrust_th/2000;
 A(A==A(1,1))=nan;
 mask_A=A-A+1;
 
-ant_plotss(ax,A*1e3,[2650,2850],nan,'kg m^{-3}','a)')
+ant_plotss(ax,A,[-50,50],'D01A','mW m^{-2}','a)')
 
 
 ax = subplot(3,2,2)
 ax.Position = [1/m+edgx edgy+2/n 1/m-2*edgx 1/n-edgy]
-A=MeanCrust_th/2000;
+A=(10.^(HPD_INV3c_U)-1).*MeanCrust_th/2000;
 A=A.*mask_A;
-ant_plotss(ax,A,[0,30],nan,'km','b)')
+ant_plotss(ax,A,[-50,50],'D01A','mW m^{-2}','b)')
 
 ax = subplot(3,2,3)
 ax.Position = [edgx edgy+1/n 1/m-2*edgx 1/n-edgy]
 
-A=(10.^(HPD_INV1c)).*MeanCrust_th/2000;
+A=(10.^(HPD_INV2c)-1).*MeanCrust_th/2000;
 A=A.*mask_A;
-ant_plotss(ax,A,[0,50],'L16','mW m^{-2}','c)')
+ant_plotss(ax,A,[-50,50],'D01A','mW m^{-2}','c)')
 
 ax = subplot(3,2,4)
 ax.Position = [1/m+edgx edgy+1/n 1/m-2*edgx 1/n-edgy]
 
-A=(10.^(HPD_INV1c)-1).*MeanCrust_th/2000;
+A=(10.^(HPD_INV3c)-1).*MeanCrust_th/2000;
 A=A.*mask_A;
 ant_plotss(ax,A,[-50,50],'D01A','mW m^{-2}','d)')
 
 ax = subplot(3,2,5)
 ax.Position = [edgx edgy 1/m-2*edgx 1/n-edgy]
 
-A=(10.^(HPD_INV1c_U)-1).*MeanCrust_th/2000;
+A=(10.^(HPD_INV2c_D)-1).*MeanCrust_th/2000;
 A=A.*mask_A;
 ant_plotss(ax,A,[-50,50],'D01A','mW m^{-2}','e)')
 
 ax = subplot(3,2,6)
 ax.Position = [1/m+edgx edgy 1/m-2*edgx 1/n-edgy]
 
-A=(10.^(HPD_INV1c_D)-1).*MeanCrust_th/2000;
+A=(10.^(HPD_INV3c_D)-1).*MeanCrust_th/2000;
 A=A.*mask_A;
 ant_plotss(ax,A,[-50,50],'D01A','mW m^{-2}','f)')
 
-print(gcf,"Figure_3.png",'-dpng','-r600')
-print(gcf,"Figure_3.pdf",'-dpdf','-r600')
+print(gcf,"Fig_S12.png",'-dpng','-r300')
 
-%
-B=(10.^(HPD_INV1c)-1).*MeanCrust_th/2000;
-B=B.*(A-A+1);
-B(isnan(B))=[];
-P = prctile(B,25)
-P = prctile(B,75)
+
+

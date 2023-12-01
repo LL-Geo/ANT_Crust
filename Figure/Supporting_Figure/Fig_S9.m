@@ -21,4 +21,4 @@ binscatter(reshape(MeanCrust_den*1e3,334*334,1),reshape(MeanCrust_th/1e3,334*334
 caxis([0,1000])
 xlabel('density(kg m^{-3})')
 ylabel('crust thickness(km)')
-print(gcf,"Den_Thickness.png",'-dpng','-r300')
+print(gcf,"Fig_S9.png",'-dpng','-r300')

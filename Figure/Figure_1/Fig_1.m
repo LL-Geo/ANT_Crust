@@ -229,6 +229,12 @@ plot([3000000-sp 3000000-sp],[2920000.9-ss 3025000.9-ss],'k-','linewidth',0.2);
 
 text(2500000-sp,3400000-ss,'1000 km','horiz','center','vert','top'); 
 
+text(1970000,1430000,'EL','horiz','center','vert','middle'); 
+text(1270000,-190000,'VH','horiz','center','vert','middle'); 
+text(2350000,-930000,'LD','horiz','center','vert','middle'); 
+text(-1550000,190000,'Haag','horiz','center','vert','middle'); 
+
+
 pos2 = plotboxpos(gca);
 pos3= [pos2(1),pos2(2)+pos2(4)-0.07/2,0.07/2,0.07/2-0.001];
 a=colorbar('west','Position',...
