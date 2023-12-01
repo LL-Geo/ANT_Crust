@@ -1,5 +1,4 @@
 # ANT_Crust
-[![DOI](https://zenodo.org/badge/643523791.svg)](https://zenodo.org/badge/latestdoi/643523791)
 
 
 
