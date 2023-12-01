@@ -9,4 +9,5 @@
 
 It supplements to the following publication:
 
-Li, L., & Aitken, A. R. (2023). Crustal heterogeneity of Antarctica signals spatially variable radiogenic heat production.
+Li, L., & Aitken, A. R. (2023). Crustal heterogeneity of Antarctica signals spatially variable radiogenic heat production. DOI: 10.22541/essoar.169444471.11820016/v1
+
